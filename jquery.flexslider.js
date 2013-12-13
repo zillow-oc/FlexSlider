@@ -1051,7 +1051,7 @@
     // Usability features
     pauseOnAction: true,            //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
     pauseOnHover: false,            //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
-    pauseInvisible: true,   		//{NEW} Boolean: Pause the slideshow when tab is invisible, resume when visible. Provides better UX, lower CPU usage.
+    pauseInvisible: true,       //{NEW} Boolean: Pause the slideshow when tab is invisible, resume when visible. Provides better UX, lower CPU usage.
     useCSS: true,                   //{NEW} Boolean: Slider will use CSS3 transitions if available
     touch: true,                    //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
     video: false,                   //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
@@ -1106,6 +1106,15 @@
 
       if ( ( $slides.length === 1 && options.allowOneSlide === true ) || $slides.length === 0 ) {
           $slides.fadeIn(400);
+          /**
+          * BEGIN HACK FOR BETTER HANDLING OF SINGLE SLIDES
+          **/
+          new $.flexslider(this, options);
+          $('ul.flex-direction-nav').hide();
+          return;
+          /**
+          * END HACK
+          **/
           if (options.start) options.start($this);
         } else if ($this.data('flexslider') === undefined) {
           new $.flexslider(this, options);
